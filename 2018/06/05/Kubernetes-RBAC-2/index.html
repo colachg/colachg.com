@@ -108,23 +108,24 @@
 
 
 
-  <meta name="description" content="有时生活超乎想象">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刚刚好">
-<meta property="og:url" content="http://colachg.com/index.html">
+  <meta name="description" content="Do It Youself动手试一试吧: 正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:  查看线上起了几个pod, 每个pod的负载如何， 每个pod的日志， 线上API是否正常.  思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes RBAC 2">
+<meta property="og:url" content="http://colachg.com/2018/06/05/Kubernetes-RBAC-2/index.html">
 <meta property="og:site_name" content="刚刚好">
-<meta property="og:description" content="有时生活超乎想象">
+<meta property="og:description" content="Do It Youself动手试一试吧: 正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:  查看线上起了几个pod, 每个pod的负载如何， 每个pod的日志， 线上API是否正常.  思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-06T06:41:47.573Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刚刚好">
-<meta name="twitter:description" content="有时生活超乎想象">
+<meta name="twitter:title" content="Kubernetes RBAC 2">
+<meta name="twitter:description" content="Do It Youself动手试一试吧: 正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:  查看线上起了几个pod, 每个pod的负载如何， 每个pod的日志， 线上API是否正常.  思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？">
 
 
 
 
 
 
-  <link rel="canonical" href="http://colachg.com/"/>
+  <link rel="canonical" href="http://colachg.com/2018/06/05/Kubernetes-RBAC-2/"/>
 
 
 
@@ -134,7 +135,7 @@
   };
 </script>
 
-  <title>刚刚好</title>
+  <title>Kubernetes RBAC 2 | 刚刚好</title>
   
 
 
@@ -181,8 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,7 +219,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
@@ -274,9 +274,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -308,11 +308,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/05/Kubernetes-RBAC-2/" itemprop="url">
-                  Kubernetes RBAC 2
-                </a>
+          <h2 class="post-title" itemprop="name headline">Kubernetes RBAC 2
               
             
           </h2>
@@ -381,6 +377,14 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
           
 
@@ -399,8 +403,7 @@
       
 
       
-        
-          <h1 id="Do-It-Youself"><a href="#Do-It-Youself" class="headerlink" title="Do It Youself"></a>Do It Youself</h1><p>动手试一试吧:</p>
+        <h1 id="Do-It-Youself"><a href="#Do-It-Youself" class="headerlink" title="Do It Youself"></a>Do It Youself</h1><p>动手试一试吧:</p>
 <p>正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:</p>
 <ul>
 <li>查看线上起了几个pod,</li>
@@ -409,14 +412,14 @@
 <li>线上API是否正常.</li>
 </ul>
 <p>思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/05/Kubernetes-RBAC-2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<a id="more"></a>
+<h2 id="Kubernets-API-Groups"><a href="#Kubernets-API-Groups" class="headerlink" title="Kubernets API Groups"></a><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/#-strong-api-overview-strong-" target="_blank" rel="noopener">Kubernets API Groups</a></h2><p>首先当然要知道有那些API分组了。</p>
+<h2 id="创建有命名空间限制权限的用户"><a href="#创建有命名空间限制权限的用户" class="headerlink" title="创建有命名空间限制权限的用户"></a>创建有命名空间限制权限的用户</h2><p>然后确定要赋予角色哪些权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#developer.yaml</span><br><span class="line">kind: ClusterRole</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1beta1　#由于我目前使用的k8s版本为1.7.8,所以是v1beta1.</span><br><span class="line">metadata:</span><br><span class="line">  name: developer</span><br><span class="line">rules:</span><br><span class="line">- apiGroups: [&quot;&quot;]</span><br><span class="line">  resources: [&quot;pods&quot;, &quot;pods/log&quot;, &quot;pods/portforward&quot;, &quot;services&quot;, &quot;secrets&quot;, &quot;endpoints&quot;, &quot;configmaps&quot;, &quot;nodes&quot;]</span><br><span class="line">  verbs: [&quot;create&quot;, &quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]</span><br><span class="line">---</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1beta1</span><br><span class="line">metadata:</span><br><span class="line">  name: developer-binding</span><br><span class="line">subjects:</span><br><span class="line">- kind: User</span><br><span class="line">  name: developer</span><br><span class="line">roleRef:</span><br><span class="line">- kind: ClusterRole</span><br><span class="line">  name: developer</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br></pre></td></tr></table></figure>
+<p><code>kubectl create -f developer.yaml</code></p>
+<h2 id="生成kubectl的config文件"><a href="#生成kubectl的config文件" class="headerlink" title="生成kubectl的config文件"></a>生成kubectl的config文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl config set-credentials developer --username=developer --password=6666o9oIB2gHD88882quIfLMy6666</span><br><span class="line">kubectl config set-cluster default-cluster --server=https://k8s.io --certificate-authority=/etc/kubernetes/cluster-ca.crt</span><br><span class="line">kubectl config set-context default-system --cluster=default-cluster --user=developer</span><br><span class="line">kubectl config use-context default-system</span><br></pre></td></tr></table></figure>
+<p>最后可以在home目录下的.kube文件夹下面看到config文件，具体其他需求可自行修改。</p>
+
       
     </div>
 
@@ -429,6 +432,35 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请我喝杯咖啡吧 ? !</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Cola 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Cola 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
@@ -436,179 +468,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://colachg.com/2018/06/05/Kubernetes-RBAC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cola">
-      <meta itemprop="description" content="有时生活超乎想象">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="刚刚好">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/05/Kubernetes-RBAC/" itemprop="url">
-                  Kubernetes-RBAC
-                </a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2018/06/05/Kubernetes-RBAC/" rel="next" title="Kubernetes-RBAC">
+                <i class="fa fa-chevron-left"></i> Kubernetes-RBAC
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-05 14:19:15 / 修改时间：16:53:31" itemprop="dateCreated datePublished" datetime="2018-06-05T14:19:15+08:00">2018-06-05</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/06/05/Kubernetes-RBAC/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/05/Kubernetes-RBAC/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="RBAC"><a href="#RBAC" class="headerlink" title="RBAC"></a>RBAC</h1><p>Role-Based Access Control (“RBAC”),用于认证和授权的决策。rbac可以让管理员动态地配置策略通过Kubernetes的API。</p>
-<h2 id="Role-and-ClusterRole"><a href="#Role-and-ClusterRole" class="headerlink" title="Role and ClusterRole"></a>Role and ClusterRole</h2><p>一个角色(Role)代表了一些权限，权限是附加的(没有否决的规则)。定义在命名空间里的角色就是Role,而定义在整个集群的就是ClusterRole.</p>
-<p>一个集群里的角色可以被赋予只有这个命名空间资源的访问权限，（只读，读写）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">kind: Role</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1</span><br><span class="line">metadata:</span><br><span class="line">  namespace: default</span><br><span class="line">  name: pod-reader</span><br><span class="line">rules:</span><br><span class="line">- apiGroups: [&quot;&quot;] # &quot;&quot; indicates the core API group</span><br><span class="line">  resources: [&quot;pods&quot;]</span><br><span class="line">  verbs: [&quot;get&quot;, &quot;watch&quot;, &quot;list&quot;]</span><br></pre></td></tr></table></figure>
-<p>上面就是”default”命名空间下只读pods权限的角色的定义文件。</p>
-<p>ClusterRole 也可以被赋予相同的权限和Role类似。但是，它的范围是整个集群，所以通常也会被赋予以下权限：</p>
-<ul>
-<li>集群级别的资源(比如：节点资源)</li>
-<li>non-resource endpoints (like “/healthz”)</li>
-<li>命名空间下的资源(比如：所有命名空间下的pods)</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">kind: ClusterRole</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1</span><br><span class="line">metadata:</span><br><span class="line">  # &quot;namespace&quot; omitted since ClusterRoles are not namespaced</span><br><span class="line">  name: secret-reader</span><br><span class="line">rules:</span><br><span class="line">- apiGroups: [&quot;&quot;]</span><br><span class="line">  resources: [&quot;secrets&quot;]</span><br><span class="line">  verbs: [&quot;get&quot;, &quot;watch&quot;, &quot;list&quot;]</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/05/Kubernetes-RBAC/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -618,180 +499,29 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://colachg.com/2018/06/01/Let-s-Encrypt-Https/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cola">
-      <meta itemprop="description" content="有时生活超乎想象">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="刚刚好">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/01/Let-s-Encrypt-Https/" itemprop="url">
-                  Let's Encrypt Https
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-06-01 10:15:59 / 修改时间：14:52:48" itemprop="dateCreated datePublished" datetime="2018-06-01T10:15:59+08:00">2018-06-01</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/06/01/Let-s-Encrypt-Https/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/01/Let-s-Encrypt-Https/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Let’s-Encrypt"><a href="#Let’s-Encrypt" class="headerlink" title="Let’s Encrypt"></a><a href="https://letsencrypt.org/getting-started/" target="_blank" rel="noopener">Let’s Encrypt</a></h2><p>该网站提供免费的https证书，有效期是三个月，到期可更新。<br><a href="https://certbot.eff.org/lets-encrypt/ubuntuxenial-other" target="_blank" rel="noopener">获取证书方法</a>,  以Ubuntu 16.04为例:</p>
-<ul>
-<li><p>安装certbot：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install software-properties-common</span><br><span class="line">sudo add-apt-repository ppa:certbot/certbot</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install certbot</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取证书：</p>
-<p> <code>sudo certbot certonly --standalone -d example.com -d www.example.com</code></p>
-<p> 域名要提前指向所在主机的公网IP地址.</p>
-</li>
-<li><p>更新证书(–dry-run只是测试下，正真更新的时候要去掉):</p>
-<p>　<code>sudo certbot renew --dry-run</code></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/01/Let-s-Encrypt-Https/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -812,8 +542,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -867,6 +606,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Do-It-Youself"><span class="nav-number">1.</span> <span class="nav-text">Do It Youself</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernets-API-Groups"><span class="nav-number">1.1.</span> <span class="nav-text">Kubernets API Groups</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建有命名空间限制权限的用户"><span class="nav-number">1.2.</span> <span class="nav-text">创建有命名空间限制权限的用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成kubectl的config文件"><span class="nav-number">1.3.</span> <span class="nav-text">生成kubectl的config文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1015,6 +770,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
 
   
 
@@ -1029,6 +788,23 @@
     <script id="dsq-count-scr" src="https://colachg.disqus.com/count.js" async></script>
   
 
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://colachg.com/2018/06/05/Kubernetes-RBAC-2/';
+        this.page.identifier = '2018/06/05/Kubernetes-RBAC-2/';
+        this.page.title = 'Kubernetes RBAC 2';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://colachg.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
   
 
 
