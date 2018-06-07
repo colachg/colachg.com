@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="Do It Youself动手试一试吧: 正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:  查看线上起了几个pod, 每个pod的负载如何， 每个pod的日志， 线上API是否正常.  思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？">
+  <meta name="description" content="创建一个用户的kubeconfig文件，通过kubectl访问集群： 创建用户的私钥: openssl genrsa -out cola.key 2048  创建一个证书签名请求(确保要在”-subj”后指定用户名和组,CN指用户名，O后面写组名): openssl req -new -key cola.key -out cola.csr -subj &amp;quot;/CN=cola/O=develo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kubernetes RBAC 2">
-<meta property="og:url" content="http://colachg.com/2018/06/05/Kubernetes-RBAC-2/index.html">
+<meta property="og:title" content="Kubernetes RBAC 3">
+<meta property="og:url" content="http://colachg.com/2018/06/07/Kubernetes-RBAC-3/index.html">
 <meta property="og:site_name" content="刚刚好">
-<meta property="og:description" content="Do It Youself动手试一试吧: 正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:  查看线上起了几个pod, 每个pod的负载如何， 每个pod的日志， 线上API是否正常.  思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？">
+<meta property="og:description" content="创建一个用户的kubeconfig文件，通过kubectl访问集群： 创建用户的私钥: openssl genrsa -out cola.key 2048  创建一个证书签名请求(确保要在”-subj”后指定用户名和组,CN指用户名，O后面写组名): openssl req -new -key cola.key -out cola.csr -subj &amp;quot;/CN=cola/O=develo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-07T06:40:05.728Z">
+<meta property="og:updated_time" content="2018-06-07T07:04:15.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kubernetes RBAC 2">
-<meta name="twitter:description" content="Do It Youself动手试一试吧: 正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:  查看线上起了几个pod, 每个pod的负载如何， 每个pod的日志， 线上API是否正常.  思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？">
+<meta name="twitter:title" content="Kubernetes RBAC 3">
+<meta name="twitter:description" content="创建一个用户的kubeconfig文件，通过kubectl访问集群： 创建用户的私钥: openssl genrsa -out cola.key 2048  创建一个证书签名请求(确保要在”-subj”后指定用户名和组,CN指用户名，O后面写组名): openssl req -new -key cola.key -out cola.csr -subj &amp;quot;/CN=cola/O=develo">
 
 
 
 
 
 
-  <link rel="canonical" href="http://colachg.com/2018/06/05/Kubernetes-RBAC-2/"/>
+  <link rel="canonical" href="http://colachg.com/2018/06/07/Kubernetes-RBAC-3/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>Kubernetes RBAC 2 | 刚刚好</title>
+  <title>Kubernetes RBAC 3 | 刚刚好</title>
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://colachg.com/2018/06/05/Kubernetes-RBAC-2/">
+    <link itemprop="mainEntityOfPage" href="http://colachg.com/2018/06/07/Kubernetes-RBAC-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cola">
@@ -316,7 +316,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Kubernetes RBAC 2
+          <h2 class="post-title" itemprop="name headline">Kubernetes RBAC 3
               
             
           </h2>
@@ -341,24 +341,12 @@
                 
               
 
-              <time title="创建时间：2018-06-05 15:31:21" itemprop="dateCreated datePublished" datetime="2018-06-05T15:31:21+08:00">2018-06-05</time>
+              <time title="创建时间：2018-06-07 14:39:48 / 修改时间：15:04:15" itemprop="dateCreated datePublished" datetime="2018-06-07T14:39:48+08:00">2018-06-07</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-06-07 14:40:05" itemprop="dateModified" datetime="2018-06-07T14:40:05+08:00">2018-06-07</time>
               
             
           </span>
@@ -372,10 +360,10 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/05/Kubernetes-RBAC-2/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/07/Kubernetes-RBAC-3/#comments" itemprop="discussionUrl">
                 
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/05/Kubernetes-RBAC-2/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/07/Kubernetes-RBAC-3/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -411,22 +399,23 @@
       
 
       
-        <h1 id="Do-It-Youself"><a href="#Do-It-Youself" class="headerlink" title="Do It Youself"></a>Do It Youself</h1><p>动手试一试吧:</p>
-<p>正式的生产环境中，除了运维人员可以直接和k8s集群交互外。其他测试和开发也想查看下集群的信息。比如:</p>
-<ul>
-<li>查看线上起了几个pod,</li>
-<li>每个pod的负载如何，</li>
-<li>每个pod的日志，</li>
-<li>线上API是否正常.</li>
+        <h1 id="创建一个用户的kubeconfig文件，通过kubectl访问集群："><a href="#创建一个用户的kubeconfig文件，通过kubectl访问集群：" class="headerlink" title="创建一个用户的kubeconfig文件，通过kubectl访问集群："></a>创建一个用户的kubeconfig文件，通过kubectl访问集群：</h1><ul>
+<li><p>创建用户的私钥:</p>
+<p><code>openssl genrsa -out cola.key 2048</code></p>
+</li>
+<li><p>创建一个证书签名请求(确保要在”-subj”后指定用户名和组,CN指用户名，O后面写组名):</p>
+<p><code>openssl req -new -key cola.key -out cola.csr -subj &quot;/CN=cola/O=developer&quot;</code></p>
+</li>
+<li><p>找到集群的ca.crt和ca.key.用来生成必要的证书和集群通信。</p>
+</li>
 </ul>
-<p>思考下，对应的RBAC怎么设置，并提供kubectl的config文件呢？</p>
+<p>　<code>openssl x509 -req -in cola.csr -CA CA_LOCATION/ca.crt -CAkey CA_LOCATION/ca.key -CAcreateserial -out cola.crt -days 500</code></p>
+<ul>
+<li>配置kubeconfig文件:<br><code>kubectl config set-credentials cola --client-certificate=/home/cola/.certs/cola.crt  --client-key=/home/cola/.certs/cola.key</code></li>
+</ul>
 <a id="more"></a>
-<h2 id="Kubernets-API-Groups"><a href="#Kubernets-API-Groups" class="headerlink" title="Kubernets API Groups"></a><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/#-strong-api-overview-strong-" target="_blank" rel="noopener">Kubernets API Groups</a></h2><p>首先当然要知道有那些API分组了。</p>
-<h2 id="创建有命名空间限制权限的用户"><a href="#创建有命名空间限制权限的用户" class="headerlink" title="创建有命名空间限制权限的用户"></a>创建有命名空间限制权限的用户</h2><p>然后确定要赋予角色哪些权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#developer.yaml</span><br><span class="line">kind: ClusterRole</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1beta1　#由于我目前使用的k8s版本为1.7.8,所以是v1beta1.</span><br><span class="line">metadata:</span><br><span class="line">  name: developer</span><br><span class="line">rules:</span><br><span class="line">- apiGroups: [&quot;&quot;]</span><br><span class="line">  resources: [&quot;pods&quot;, &quot;pods/log&quot;, &quot;pods/portforward&quot;, &quot;services&quot;, &quot;secrets&quot;, &quot;endpoints&quot;, &quot;configmaps&quot;, &quot;nodes&quot;]</span><br><span class="line">  verbs: [&quot;create&quot;, &quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]</span><br><span class="line">---</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1beta1</span><br><span class="line">metadata:</span><br><span class="line">  name: developer-binding</span><br><span class="line">subjects:</span><br><span class="line">- kind: User</span><br><span class="line">  name: developer</span><br><span class="line">roleRef:</span><br><span class="line">- kind: ClusterRole</span><br><span class="line">  name: developer</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br></pre></td></tr></table></figure>
-<p><code>kubectl create -f developer.yaml</code></p>
-<h2 id="生成kubectl的config文件"><a href="#生成kubectl的config文件" class="headerlink" title="生成kubectl的config文件"></a>生成kubectl的config文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl config set-credentials developer --username=developer --password=6666o9oIB2gHD88882quIfLMy6666</span><br><span class="line">kubectl config set-cluster default-cluster --server=https://k8s.io --certificate-authority=/etc/kubernetes/cluster-ca.crt</span><br><span class="line">kubectl config set-context default-system --cluster=default-cluster --user=developer</span><br><span class="line">kubectl config use-context default-system</span><br></pre></td></tr></table></figure>
-<p>最后可以在home目录下的.kube文件夹下面看到config文件，具体其他需求可自行修改。</p>
+<h1 id="创建Role来管理Deployments"><a href="#创建Role来管理Deployments" class="headerlink" title="创建Role来管理Deployments:"></a>创建Role来管理Deployments:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#deployment-manager.yaml</span><br><span class="line">kind: Role</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1beta1</span><br><span class="line">metadata:</span><br><span class="line">    namespace: office</span><br><span class="line">    name: deployment-manager</span><br><span class="line">rules:</span><br><span class="line">- apiGroups: [&quot;&quot;, &quot;extensions&quot;, &quot;apps&quot;]</span><br><span class="line">    resources: [&quot;deployments&quot;, &quot;replicasets&quot;, &quot;pods&quot;]</span><br><span class="line">    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;] # You can also use [&quot;*&quot;]</span><br><span class="line">---</span><br><span class="line">kind: RoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1beta1</span><br><span class="line">metadata:</span><br><span class="line">    name: deployment-manager-binding</span><br><span class="line">    namespace: office</span><br><span class="line">subjects:</span><br><span class="line">- kind: User</span><br><span class="line">    name: cola</span><br><span class="line">    apiGroup: &quot;&quot;</span><br><span class="line">roleRef:</span><br><span class="line">    kind: Role</span><br><span class="line">    name: deployment-manager</span><br><span class="line">    apiGroup: &quot;&quot;</span><br></pre></td></tr></table></figure>
+<p>  <code>kubectl create -f deployment-manager.yaml</code></p>
 
       
     </div>
@@ -483,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/05/Kubernetes-RBAC/" rel="next" title="Kubernetes-RBAC">
-                <i class="fa fa-chevron-left"></i> Kubernetes-RBAC
+              <a href="/2018/06/05/Kubernetes-RBAC-2/" rel="next" title="Kubernetes RBAC 2">
+                <i class="fa fa-chevron-left"></i> Kubernetes RBAC 2
               </a>
             
           </div>
@@ -492,10 +481,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/07/Kubernetes-RBAC-3/" rel="prev" title="Kubernetes RBAC 3">
-                Kubernetes RBAC 3 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -628,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Do-It-Youself"><span class="nav-number">1.</span> <span class="nav-text">Do It Youself</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernets-API-Groups"><span class="nav-number">1.1.</span> <span class="nav-text">Kubernets API Groups</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建有命名空间限制权限的用户"><span class="nav-number">1.2.</span> <span class="nav-text">创建有命名空间限制权限的用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成kubectl的config文件"><span class="nav-number">1.3.</span> <span class="nav-text">生成kubectl的config文件</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建一个用户的kubeconfig文件，通过kubectl访问集群："><span class="nav-number">1.</span> <span class="nav-text">创建一个用户的kubeconfig文件，通过kubectl访问集群：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建Role来管理Deployments"><span class="nav-number">2.</span> <span class="nav-text">创建Role来管理Deployments:</span></a></li></ol></div>
             
 
           </div>
@@ -803,9 +788,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://colachg.com/2018/06/05/Kubernetes-RBAC-2/';
-        this.page.identifier = '2018/06/05/Kubernetes-RBAC-2/';
-        this.page.title = 'Kubernetes RBAC 2';
+        this.page.url = 'http://colachg.com/2018/06/07/Kubernetes-RBAC-3/';
+        this.page.identifier = '2018/06/07/Kubernetes-RBAC-3/';
+        this.page.title = 'Kubernetes RBAC 3';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');

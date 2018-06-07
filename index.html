@@ -231,6 +231,14 @@
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />站点地图</a>
+  </li>
 
       
       
@@ -275,6 +283,175 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://colachg.com/2018/06/07/Kubernetes-RBAC-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cola">
+      <meta itemprop="description" content="有时生活超乎想象">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刚刚好">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/07/Kubernetes-RBAC-3/" itemprop="url">
+                  Kubernetes RBAC 3
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-07 14:39:48 / 修改时间：15:04:15" itemprop="dateCreated datePublished" datetime="2018-06-07T14:39:48+08:00">2018-06-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/07/Kubernetes-RBAC-3/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/07/Kubernetes-RBAC-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="创建一个用户的kubeconfig文件，通过kubectl访问集群："><a href="#创建一个用户的kubeconfig文件，通过kubectl访问集群：" class="headerlink" title="创建一个用户的kubeconfig文件，通过kubectl访问集群："></a>创建一个用户的kubeconfig文件，通过kubectl访问集群：</h1><ul>
+<li><p>创建用户的私钥:</p>
+<p><code>openssl genrsa -out cola.key 2048</code></p>
+</li>
+<li><p>创建一个证书签名请求(确保要在”-subj”后指定用户名和组,CN指用户名，O后面写组名):</p>
+<p><code>openssl req -new -key cola.key -out cola.csr -subj &quot;/CN=cola/O=developer&quot;</code></p>
+</li>
+<li><p>找到集群的ca.crt和ca.key.用来生成必要的证书和集群通信。</p>
+</li>
+</ul>
+<p>　<code>openssl x509 -req -in cola.csr -CA CA_LOCATION/ca.crt -CAkey CA_LOCATION/ca.key -CAcreateserial -out cola.crt -days 500</code></p>
+<ul>
+<li>配置kubeconfig文件:<br><code>kubectl config set-credentials cola --client-certificate=/home/cola/.certs/cola.crt  --client-key=/home/cola/.certs/cola.key</code></li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/07/Kubernetes-RBAC-3/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -354,7 +531,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-06-06 14:41:47" itemprop="dateModified" datetime="2018-06-06T14:41:47+08:00">2018-06-06</time>
+                <time title="修改时间：2018-06-07 14:40:05" itemprop="dateModified" datetime="2018-06-07T14:40:05+08:00">2018-06-07</time>
               
             
           </span>
@@ -828,7 +1005,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
